@@ -1,0 +1,179 @@
+input * xkb_layout "gb"
+
+#Display and input config
+input * dwt disabled
+input * scroll_factor 0.5
+
+output eDP-1 {
+    bg /home/rhys/Pictures/.wallpapers/4.jpg fill
+    subpixel rgb
+}
+
+output HDMI-A-2 {
+    bg /home/rhys/Pictures/.wallpapers/4.jpg fill
+    mode 1920x1080@60Hz
+}
+
+#XWayland Enable/disable
+xwayland enable
+
+#Set up GTK
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Adapta-Nokto-Eta'
+    gsettings set $gnome-schema icon-theme 'Adwaita'
+    gsettings set $gnome-schema cursor-theme 'Adwaita'
+}
+
+# Startup apps/services
+exec --no-startup-id autotiling
+exec --no-startup-id light -I
+exec --no-startup-id mpris-proxy
+exec --no-startup-id /home/rhys/.config/sway/idle.sh
+exec --no-startup-id xhost +SI:localuser:root
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+#Bar config
+bar {
+    swaybar_command waybar
+}
+
+set $mod Mod4
+
+# Font for window titles and bar. We don't use these
+font pango:Noto Sans 0
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec kitty
+
+# kill focused window
+bindsym $mod+q kill
+
+# start wofi (a program launcher)
+bindsym $mod+Tab exec --no-startup-id wofi
+
+# toggle between stacked and split
+bindsym $mod+Grave layout toggle stacking split
+
+# change focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+# toggle tiling / floating
+bindsym $mod+space floating toggle
+
+# switch to workspace
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# reload sway
+bindsym $mod+Shift+r reload
+
+# resize window (you can also use the mouse for that)
+mode " Resize " {
+# These bindings trigger as soon as you enter the resize mode
+  bindsym Left resize shrink width 10 px or 10 ppt
+  bindsym Down resize grow height 10 px or 10 ppt
+  bindsym Up resize shrink height 10 px or 10 ppt
+  bindsym Right resize grow width 10 px or 10 ppt
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode " Resize "
+
+
+# Brightness
+bindsym --locked $mod+equal exec "light -T 1.125 && light -O"
+bindsym --locked $mod+minus exec "light -T 0.888 && light -O"
+
+# Pulse Audio controls
+bindsym --locked XF86AudioRaiseVolume exec --no-startup-id pamixer --allow-boost -i 5
+#decrease sound volume
+bindsym --locked XF86AudioLowerVolume exec --no-startup-id pamixer --allow-boost -d 5
+# mute sound
+bindsym --locked XF86AudioMute exec --no-startup-id pamixer -t
+
+# Next Song
+bindsym --locked XF86AudioNext exec --no-startup-id playerctl next
+# Prev Song
+bindsym --locked XF86AudioPrev exec --no-startup-id playerctl previous
+# Play Pause
+bindsym --locked XF86AudioPlay exec --no-startup-id playerctl play-pause
+
+# Screenshot
+bindsym --locked $mod+Print exec grim "Pictures/screenshot@$(date '+%Y.%m.%d-%H:%M:%S').png" && notify-send "Screenshot taken" -i camera-photo-symbolic
+#Screenshot selected area
+bindsym $mod+Alt+Print exec 'slurp | grim -g - "Pictures/screenshot@$(date '+%Y.%m.%d-%H:%M:%S').png" && notify-send "Area screenshot taken" -i camera-photo-symbolic
+#Screenchot whole window window
+bindsym $mod+Shift+Print exec /home/rhys/.config/sway/scrotwindow.sh
+
+# Open displays menu
+bindsym $mod+p exec wdisplays
+
+# Special system mode
+set $mode_system  System: Lock, Suspend, Hibernate,Reboot, Poweroff 
+mode "$mode_system" {
+  bindsym s exec --no-startup-id systemctl hybrid-sleep, mode "default"
+  bindsym l exec --no-startup-id /home/rhys/.config/sway/login.sh, mode "default"
+  bindsym r exec --no-startup-id systemctl reboot, mode "default"
+  bindsym p exec --no-startup-id systemctl poweroff, mode "default"
+  bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+# back to normal
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $mod+x mode "$mode_system"
+
+# Colors
+client.focused          #1793d0 #1793d0 #1793d0 #1793d0 #1793d0
+client.focused_inactive #333333 #333333 #333333 #333333 #333333
+client.unfocused        #333333 #333333 #333333 #333333 #333333
+client.urgent           #b33a3a #b33a3a #b33a3a #b33a3a #b33a3a
+
+
+gaps inner 14
+
+smart_gaps on
+
+default_border pixel 2
+smart_borders no_gaps

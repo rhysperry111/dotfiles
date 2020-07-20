@@ -1,0 +1,9 @@
+width=1320
+height=420
+x=0
+y=0
+mode=drun
+prompt=Search
+insensitive=true
+key_expand=Right
+hide_scroll=true
