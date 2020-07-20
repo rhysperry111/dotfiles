@@ -1,4 +1,4 @@
-# Rhys's dotfiles
+# Rhys' dotfiles
 
 ![Preview image](preview.png)
 > NOTE: If you think somethink is wrong or missing, open an issue
@@ -43,9 +43,9 @@
 
 ### Things you might need to change:
 - Everywhere:
-     - My display it 1920x1080. If you have a different reolution you are gonna need to change quite a bit
+     - My display it 1920x1080. If you have a different resolution you are gonna need to change quite a bit
      - In quite a lot of place I have hard-coded my home directory, you will need to change these
 - Sway config:
     - Keyboard layout and input options
     - Output options
-    - You may want to change some environment variables
+    - You may want to change some environment variable    
