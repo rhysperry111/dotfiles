@@ -5,7 +5,7 @@
     // "width": 1920, // Waybar width
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["custom/mousebat", "custom/updates", "pulseaudio", "network", "cpu", "memory", "battery", "clock", "tray"],
+    "modules-right": ["custom/updates", "pulseaudio", "network", "cpu", "memory", "battery", "clock", "tray"],
     "sway/workspaces": {
         "disable-scroll": true,
         "all-outputs": false,
@@ -72,11 +72,5 @@
         "interval": 60,
         "tooltip-format": "{tooltip}",
 	"exec": "$HOME/.config/waybar/checkupdates.sh"
-    },
-    "custom/mousebat": {
-        "format": "{}% ",
-        "max-length": 6,
-        "interval": 120,
-        "exec": "$HOME/.config/waybar/mousebat.sh 2> /dev/null"
     }
 }
