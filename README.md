@@ -1,8 +1,7 @@
 # Rhys's dotfiles
 
-My dotfiles.
-
-If you think somethink is wrong or missing, open an issue
+![Preview image](preview.png)
+> NOTE: If you think somethink is wrong or missing, open an issue
 
 ## How to use this
 ### Things to install (all names are either in the official arch repos, or in the AUR):
